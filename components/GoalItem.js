@@ -1,9 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 
 function GoalItem(props) {
     return (
         <View style={styles.goalStyle}>
-            <Text style={{color:'#ffffff'}}>{props.text}</Text>
+            <Pressable 
+                onPress={props.onDeleteItem.bind(this, props.id)} 
+                android_ripple={{color: '#2f0492'}}
+                style={({pressed}) => pressed ? styles.pressedItem:null} //style prop will get the pressed or onPress. So if onPress is true, this will execute. This is only for ios
+            >
+                <Text style={{color:'#ffffff', padding: 5}}>{props.text}</Text>
+            </Pressable>
         </View>
     )
 }
@@ -11,13 +17,15 @@ function GoalItem(props) {
 const styles = StyleSheet.create({
     goalStyle: {
       textAlign: 'center',
-      marginLeft: 24,
+      
       marginTop: 5,
-      borderWidth: 2,
+      borderWidth: 1,
       borderColor: '#580ecc',
-      padding: 2,
       borderRadius: 5,
       backgroundColor: '#580ecc'
+    },
+    pressedItem: { //this is for IOS since android_ripple will not work
+       opacity: 0.5 
     }
   });
 
